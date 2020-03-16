@@ -1,0 +1,56 @@
+# depslib dependency file v1.0
+1584374455 source:c:\users\user\onedrive\documents\ss2020lokal\oos\mock\json\main.cpp
+	<iostream>
+	"Utilities.h"
+	"JsonObject.h"
+	"JsonValue.h"
+
+1584378380 source:c:\users\user\onedrive\documents\ss2020lokal\oos\mock\json\jsonnode.cpp
+	"JsonNode.h"
+
+1584378304 c:\users\user\onedrive\documents\ss2020lokal\oos\mock\json\jsonnode.h
+	<string>
+
+1584370224 source:c:\users\user\onedrive\documents\ss2020lokal\oos\mock\json\jsonvalue.cpp
+	"JsonValue.h"
+
+1584368930 c:\users\user\onedrive\documents\ss2020lokal\oos\mock\json\jsonvalue.h
+	<string>
+	"JsonNode.h"
+	"JsonObject.h"
+
+1584378324 source:c:\users\user\onedrive\documents\ss2020lokal\oos\mock\json\jsonobject.cpp
+	"JsonObject.h"
+
+1584370114 c:\users\user\onedrive\documents\ss2020lokal\oos\mock\json\jsonobject.h
+	<vector>
+	<stdexcept>
+	"JsonNode.h"
+
+1584349785 c:\users\user\onedrive\documents\ss2020lokal\oos\mock\json\jsonelement.h
+
+1584349136 source:c:\users\user\onedrive\documents\ss2020lokal\oos\mock\json\jsonarray.cpp
+	"JsonArray.h"
+
+1584350474 c:\users\user\onedrive\documents\ss2020lokal\oos\mock\json\jsonarray.h
+	"JsonNode.h"
+	<string>
+	<list>
+
+1584374238 source:c:\users\user\onedrive\documents\ss2020lokal\oos\mock\json\jsonroot.cpp
+	"JsonRoot.h"
+
+1584363605 c:\users\user\onedrive\documents\ss2020lokal\oos\mock\json\jsonroot.h
+	<stdexcept>
+	"JsonNode.h"
+
+1584370454 source:c:\users\user\onedrive\documents\ss2020lokal\oos\mock\json\utilities.cpp
+	"Utilities.h"
+
+1584370559 c:\users\user\onedrive\documents\ss2020lokal\oos\mock\json\utilities.h
+	<stdexcept>
+	<vector>
+	"JsonNode.h"
+	"JsonObject.h"
+	"JsonValue.h"
+
