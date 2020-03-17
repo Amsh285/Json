@@ -38,6 +38,8 @@
 		<Unit filename="JsonObject.h" />
 		<Unit filename="JsonValue.cpp" />
 		<Unit filename="JsonValue.h" />
+		<Unit filename="Utilities.cpp" />
+		<Unit filename="Utilities.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
