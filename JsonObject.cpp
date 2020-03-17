@@ -46,9 +46,16 @@ std::string JsonObject::ToJsonString()
         tabs += tab;
     }
 
-    for(auto const& value: this->children)
+    std::vector<JsonNode*>::size_type childrenCount = this->children.size();
+
+    for(std::vector<JsonNode*>::size_type i = 0;i < childrenCount;++i)
     {
-        result += tabs + value->ToJsonString() + "\n";
+        auto const& value = this->children[i];
+
+        if(i < childrenCount - 1)
+            result += tabs + value->ToJsonString() + "," + "\n";
+        else
+            result += tabs + value->ToJsonString() + "\n";
     }
 
     result += closingTabs + closingBracket;

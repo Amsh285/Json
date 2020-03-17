@@ -8,10 +8,8 @@ using namespace std;
 
 int main()
 {
-    // Ebene speichern für die Formatierung
-
     JsonObject *person = Create::A.JsonObject()
-        .WithName("Person")
+        //.WithName("Person")
         .WithJsonObjectType(JsonObjectType_Object)
         .Build();
 
@@ -29,20 +27,16 @@ int main()
 
     JsonObject *address = Create::A.JsonObject()
         .WithName("Addresse")
+        .WithValues( [](Create::JsonValueListBuider builder){
+            return builder
+                .WithValue("Strasse", "Seppgasse 24")
+                .WithValue("TuerNr", 12)
+                .WithValue("Postleitzahl", 1337)
+                .WithValue("Ort", "Badgerhausen")
+                .Build();
+        })
         .WithJsonObjectType(JsonObjectType_Object)
         .WithParent(person)
-        .Build();
-
-    JsonValue* street = Create::A.JsonValue()
-        .WithName("Strasse")
-        .WithValue("Seppgasse 24")
-        .WithParent(address)
-        .Build();
-
-    JsonValue* doorNumber = Create::A.JsonValue()
-        .WithName("TuerNr:")
-        .WithValue(12)
-        .WithParent(address)
         .Build();
 
     cout << person->ToJsonString() << endl;
