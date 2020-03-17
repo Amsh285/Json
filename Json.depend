@@ -54,3 +54,48 @@
 	"JsonObject.h"
 	"JsonValue.h"
 
+1584378380 source:d:\gitprojects\json\jsonnode.cpp
+	"JsonNode.h"
+
+1584378304 d:\gitprojects\json\jsonnode.h
+	<string>
+
+1584378754 source:d:\gitprojects\json\jsonobject.cpp
+	"JsonObject.h"
+
+1584370114 d:\gitprojects\json\jsonobject.h
+	<vector>
+	<stdexcept>
+	"JsonNode.h"
+
+1584374238 source:d:\gitprojects\json\jsonroot.cpp
+	"JsonRoot.h"
+
+1584363605 d:\gitprojects\json\jsonroot.h
+	<stdexcept>
+	"JsonNode.h"
+
+1584370224 source:d:\gitprojects\json\jsonvalue.cpp
+	"JsonValue.h"
+
+1584368930 d:\gitprojects\json\jsonvalue.h
+	<string>
+	"JsonNode.h"
+	"JsonObject.h"
+
+1584374455 source:d:\gitprojects\json\main.cpp
+	<iostream>
+	"Utilities.h"
+	"JsonObject.h"
+	"JsonValue.h"
+
+1584370559 d:\gitprojects\json\utilities.h
+	<stdexcept>
+	<vector>
+	"JsonNode.h"
+	"JsonObject.h"
+	"JsonValue.h"
+
+1584370454 source:d:\gitprojects\json\utilities.cpp
+	"Utilities.h"
+
