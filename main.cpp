@@ -41,7 +41,19 @@ int main()
 
     cout << person->ToJsonString() << endl;
 
+    auto intTest = Create::A.JsonValue()
+        .WithValue(1337)
+        .Build();
+
+    auto stringTest = Create::A.JsonValue()
+        .WithValue("1337")
+        .Build();
+
+    cout << intTest->ToJsonString() << " - " << stringTest->ToJsonString() << endl;
+
     delete person;
+    delete intTest;
+    delete stringTest;
 
     return 0;
 }

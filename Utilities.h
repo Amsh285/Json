@@ -1,6 +1,8 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
+#include <string>
+#include <sstream>
 #include <stdexcept>
 #include <functional>
 #include <vector>
@@ -96,6 +98,19 @@ namespace Create
 
     extern ObjectBuilderContainer A;
     extern ObjectBuilderContainer An;
+}
+
+namespace stdstring
+{
+    template<class TContainer>
+    void Split(TContainer& target, const std::string& source, char delimiter = ' ')
+    {
+        std::stringstream stream(source);
+        std::string token;
+
+        while(std::getline(stream, token, delimiter))
+            target.push_back(token);
+    }
 }
 
 #endif // UTILITIES_H
