@@ -7,9 +7,13 @@
 #include <tuple>
 #include <sstream>
 
+#include "Utilities.h"
 #include "JsonNode.h"
 #include "JsonObject.h"
 #include "JsonValue.h"
+#include "JsonObjectSegmenter.h"
+
+using namespace GlobalJsonDefinitions;
 
 class JsonParser
 {
@@ -21,6 +25,7 @@ class JsonParser
     protected:
 
     private:
+        JsonObjectSegmenter objectSegmenter;
 };
 
 #endif // JSONPARSER_H

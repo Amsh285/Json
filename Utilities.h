@@ -2,7 +2,6 @@
 #define UTILITIES_H
 
 #include <string>
-#include <sstream>
 #include <stdexcept>
 #include <functional>
 #include <vector>
@@ -11,6 +10,33 @@
 #include "JsonNode.h"
 #include "JsonObject.h"
 #include "JsonValue.h"
+
+namespace GlobalJsonDefinitions
+{
+    const char openJsonObjectTag = '{', closeJsonObjectTag = '}';
+    const char openJsonArrayTag = '[', closeJsonArrayTag = ']';
+    const char stringLiteralTag = '"';
+    const char whitespace = ' ';
+
+    const std::string JsonElementTypes[] = {
+        "JsonElementType_Object",
+        "JsonElementType_Array",
+        "JsonElementType_Value",
+        "JsonElementType_singleValue",
+        "JsonElementType_KeyValuePair",
+        "JsonElementType_Unknown"
+    };
+
+    enum JsonElementType
+    {
+        JsonElementType_Object,
+        JsonElementType_Array,
+        JsonElementType_Value,
+        JsonElementType_singleValue,
+        JsonElementType_KeyValuePair,
+        JsonElementType_Unknown
+    };
+}
 
 namespace Create
 {
@@ -98,19 +124,6 @@ namespace Create
 
     extern ObjectBuilderContainer A;
     extern ObjectBuilderContainer An;
-}
-
-namespace stdstring
-{
-    template<class TContainer>
-    void Split(TContainer& target, const std::string& source, char delimiter = ' ')
-    {
-        std::stringstream stream(source);
-        std::string token;
-
-        while(std::getline(stream, token, delimiter))
-            target.push_back(token);
-    }
 }
 
 #endif // UTILITIES_H

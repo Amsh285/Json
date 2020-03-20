@@ -1,5 +1,8 @@
 #include <iostream>
 
+#include "JsonObjectSegmenter.h"
+
+#include "StringHelper.h"
 #include "Utilities.h"
 #include "JsonObject.h"
 #include "JsonValue.h"
@@ -39,7 +42,9 @@ int main()
         .WithParent(person)
         .Build();
 
-    cout << person->ToJsonString() << endl;
+    std::string personString = person->ToJsonString();
+
+    cout << personString << endl;
 
     auto intTest = Create::A.JsonValue()
         .WithValue(1337)
@@ -50,6 +55,26 @@ int main()
         .Build();
 
     cout << intTest->ToJsonString() << " - " << stringTest->ToJsonString() << endl;
+
+    std::string eineErkenntnis = "   Ich mag kekse.   ";
+    std::string nochEineErkenntnis = "Ich mag kekse.";
+
+    stringhelper::Trim(eineErkenntnis);
+    stringhelper::Trim(nochEineErkenntnis);
+
+    cout << "|" << eineErkenntnis << "| - |" << nochEineErkenntnis << "|" << endl;
+
+    std::string conclusio = "    Kekse sind geil!     ";
+    std::string conclusioCopy = stringhelper::TrimCopy(conclusio);
+
+    cout << "|" << conclusio << "| - |" << conclusioCopy << "|" << endl;
+    cout << "StartsWith: " << stringhelper::StartsWith("ebene", "eb") << " - " << "EndsWith: " << stringhelper::EndsWith("ebene", "ne") << endl;
+
+    std::vector<std::string> segments;
+
+    JsonObjectSegmenter segmenter;
+    segmenter.SegmentJsonString(segments, personString, JsonElementType_Object);
+    segmenter.PrintSegments(&cout, segments);
 
     delete person;
     delete intTest;

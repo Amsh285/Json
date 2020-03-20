@@ -1,19 +1,6 @@
 #include "JsonParser.h"
 
-const char openJsonObjectTag = '{', closeJsonObjectTag = '}';
-const char openJsonArrayTag = '{', closeJsonArrayTag = '}';
-const char stringLiteralTag = '"';
-const char whitespace = ' ';
 
-enum JsonElementType
-{
-    JsonElementType_Object,
-    JsonElementType_Array,
-    JsonElementType_Value,
-    JsonElementType_singleValue,
-    JsonElementType_KeyValuePair,
-    JsonElementType_Unknown
-};
 
 typedef std::tuple<std::string::size_type, JsonElementType> IndentificationResult;
 
@@ -25,92 +12,6 @@ JsonParser::JsonParser()
 JsonParser::~JsonParser()
 {
     //dtor
-}
-
-typedef std::tuple<char, char, bool> FlipSwitch;
-
-bool OneSwitchOn(std::vector<FlipSwitch> switches)
-{
-    for(auto& sw: switches)
-    {
-        if(std::get<2>(sw))
-            return true;
-    }
-
-    return false;
-}
-
-bool AllSwitchesOff(std::vector<FlipSwitch> switches)
-{
-    return !OneSwitchOn(switches);
-}
-
-bool IsOnSwitch(std::vector<FlipSwitch> switches, char value)
-{
-    for(auto& sw: switches)
-    {
-        if(std::get<0>(sw) == value)
-            return true;
-    }
-}
-
-void ToggleSwitchOn(std::vector<FlipSwitch> switches, char switchName)
-{
-    assert((AllSwitchesOff(switches), "Only one switch can be toggled on." ));
-
-    for(auto& sw: switches)
-    {
-        if(std::get<0>(sw) == switchName)
-        {
-            assert((!std::get<2>(sw), "Tried to toggle on an active switch."));
-            std::get<2>(sw) = true;
-        }
-    }
-}
-
-void TryToggleSwitchOff(std::vector<FlipSwitch> switches, char attemptingValue)
-{
-    for(auto& sw: switches)
-    {
-        if(std::get<1>(sw) == attemptingValue && std::get<2>(sw))
-            std::get<2>(sw) = false;
-    }
-}
-
-//Gesamte Segmentierung auslagern in Klasse JsonSegmenter!!!
-template<class TContainer>
-void SegmentJsonString(TContainer& target, std::string source)
-{
-    const char delimiter = ',';
-
-    std::vector<FlipSwitch> radioSwitches = {
-        FlipSwitch(openJsonObjectTag, closeJsonObjectTag, false),
-        FlipSwitch(openJsonArrayTag, closeJsonArrayTag, false),
-        FlipSwitch(stringLiteralTag, stringLiteralTag, false)
-    };
-
-    std::stringstream stream(source);
-    std::string token;
-
-    bool ignoreDelimiter = false;
-
-    for(std::string::size_type i = 0;i < source.size();++i)
-    {
-        char current = source[i];
-
-        if(AllSwitchesOff(radioSwitches))
-        {
-            if(IsOnSwitch(radioSwitches, current))
-                ToggleSwitchOn(radioSwitches, current);
-            else if(current == delimiter)
-            {
-                target.push_back(source.substr(0, i));
-                source.erase(0, i + 1);
-            }
-        }
-        else
-            TryToggleSwitchOff(radioSwitches, current);
-    }
 }
 
 std::string GetJsonStringDataSegment(const std::string& target, std::string::size_type startPosition, char closingTag)
@@ -254,6 +155,4 @@ JsonNode* JsonParser::ParseJsonString(const std::string& value)
         jsonRootElementSegment = GetJsonStringDataSegment(value, std::get<0>(firstElement), closeJsonObjectTag);
         return ParseJsonObject(jsonRootElementSegment);
     }
-
-
 }
