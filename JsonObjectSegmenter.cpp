@@ -72,7 +72,6 @@ void JsonObjectSegmenter::SegmentJsonString(std::vector<std::string>& target, st
     {
         char current = source[i];
 
-        // auslagern auf klasse mit CheckAndSwitchOn sowas in der Art.
         if(delimiterState.AllSwitchesOff())
         {
             if(delimiterState.IsOnSwitch(current))

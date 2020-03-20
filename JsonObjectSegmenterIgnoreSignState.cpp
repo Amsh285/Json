@@ -2,10 +2,12 @@
 
 JsonObjectSegmenterIgnoreSignState::JsonObjectSegmenterIgnoreSignState()
 {
+    stringLiteralSwitch = FlipSwitch(stringLiteralTag, stringLiteralTag, false);
+
     this->switches = {
         FlipSwitch(openJsonObjectTag, closeJsonObjectTag, false),
         FlipSwitch(openJsonArrayTag, closeJsonArrayTag, false),
-        FlipSwitch(stringLiteralTag, stringLiteralTag, false)
+        stringLiteralSwitch
     };
 }
 
@@ -43,11 +45,9 @@ bool JsonObjectSegmenterIgnoreSignState::IsOnSwitch(char value)
 
 void JsonObjectSegmenterIgnoreSignState::ToggleSwitchOn(char switchName)
 {
-    assert((AllSwitchesOff(), "Only one switch can be toggled on." ));
-
     for(auto& sw: this->switches)
     {
-        if(std::get<0>(sw) == switchName)
+        if(std::get<0>(sw) == switchName && CanToggleSwitch(switchName))
         {
             assert((!std::get<2>(sw), "Tried to toggle on an active switch."));
             std::get<2>(sw) = true;
@@ -59,7 +59,19 @@ void JsonObjectSegmenterIgnoreSignState::TryToggleSwitchOff(char attemptingValue
 {
     for(auto& sw: this->switches)
     {
-        if(std::get<1>(sw) == attemptingValue && std::get<2>(sw))
+        bool currenSwitchIsOn = std::get<2>(sw);
+
+        if(std::get<1>(sw) == attemptingValue && currenSwitchIsOn && CanToggleSwitch(attemptingValue))
             std::get<2>(sw) = false;
     }
+}
+
+bool JsonObjectSegmenterIgnoreSignState::CanToggleSwitch(const char& value)
+{
+    return value == stringLiteralTag || !StringLiteralSwitchOpen();
+}
+
+bool JsonObjectSegmenterIgnoreSignState::StringLiteralSwitchOpen()
+{
+    return std::get<2>(this->stringLiteralSwitch);
 }

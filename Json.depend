@@ -83,7 +83,7 @@
 	"JsonNode.h"
 	"JsonObject.h"
 
-1584700940 source:d:\gitprojects\json\main.cpp
+1584729347 source:d:\gitprojects\json\main.cpp
 	<iostream>
 	"JsonObjectSegmenter.h"
 	"StringHelper.h"
@@ -104,7 +104,7 @@
 1584689792 source:d:\gitprojects\json\utilities.cpp
 	"Utilities.h"
 
-1584591482 source:d:\gitprojects\json\jsonparser.cpp
+1584734930 source:d:\gitprojects\json\jsonparser.cpp
 	"JsonParser.h"
 
 1584591508 d:\gitprojects\json\jsonparser.h
@@ -143,7 +143,7 @@
 1584700918 source:d:\gitprojects\json\stringhelper.cpp
 	"StringHelper.h"
 
-1584729010 d:\gitprojects\json\jsonobjectsegmenterignoresignstate.h
+1584736860 d:\gitprojects\json\jsonobjectsegmenterignoresignstate.h
 	<string>
 	<tuple>
 	<vector>
@@ -151,6 +151,6 @@
 	<assert.h>
 	"Utilities.h"
 
-1584729120 source:d:\gitprojects\json\jsonobjectsegmenterignoresignstate.cpp
+1584736933 source:d:\gitprojects\json\jsonobjectsegmenterignoresignstate.cpp
 	"JsonObjectSegmenterIgnoreSignState.h"
 

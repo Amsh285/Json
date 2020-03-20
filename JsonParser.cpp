@@ -67,7 +67,7 @@ void ValidateJsonFormat(const std::string& value)
         }
 
         //Tags in Stringliterals do not count for Object or Array interpretation.
-        if(stringliteralOpen)
+        if(!stringliteralOpen)
         {
             if(value[i] == openJsonObjectTag)
                 ++numOfopenJsonObjectTags;

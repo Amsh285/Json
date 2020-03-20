@@ -28,6 +28,10 @@ class JsonObjectSegmenterIgnoreSignState
     protected:
 
     private:
+        bool CanToggleSwitch(const char& value);
+        bool StringLiteralSwitchOpen();
+
+        FlipSwitch stringLiteralSwitch;
         std::vector<FlipSwitch> switches;
 };
 
