@@ -21,7 +21,11 @@ class JsonObjectSegmenterIgnoreSignState
 
         bool OneSwitchOn();
         bool AllSwitchesOff();
+        bool StringLiteralSwitchOpen();
+
+        bool IsStringLiteralSwitch(char value);
         bool IsOnSwitch(char value);
+
         void ToggleSwitchOn(char switchName);
         void TryToggleSwitchOff(char attemptingValue);
 
@@ -29,9 +33,8 @@ class JsonObjectSegmenterIgnoreSignState
 
     private:
         bool CanToggleSwitch(const char& value);
-        bool StringLiteralSwitchOpen();
 
-        FlipSwitch stringLiteralSwitch;
+        const FlipSwitch* stringLiteralSwitch;
         std::vector<FlipSwitch> switches;
 };
 

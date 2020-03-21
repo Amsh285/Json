@@ -2,13 +2,13 @@
 
 JsonObjectSegmenterIgnoreSignState::JsonObjectSegmenterIgnoreSignState()
 {
-    stringLiteralSwitch = FlipSwitch(stringLiteralTag, stringLiteralTag, false);
-
     this->switches = {
         FlipSwitch(openJsonObjectTag, closeJsonObjectTag, false),
         FlipSwitch(openJsonArrayTag, closeJsonArrayTag, false),
-        stringLiteralSwitch
+        FlipSwitch(stringLiteralTag, stringLiteralTag, false)
     };
+
+    stringLiteralSwitch = &switches[2];
 }
 
 JsonObjectSegmenterIgnoreSignState::~JsonObjectSegmenterIgnoreSignState()
@@ -30,6 +30,11 @@ bool JsonObjectSegmenterIgnoreSignState::OneSwitchOn()
 bool JsonObjectSegmenterIgnoreSignState::AllSwitchesOff()
 {
     return !OneSwitchOn();
+}
+
+bool JsonObjectSegmenterIgnoreSignState::IsStringLiteralSwitch(char value)
+{
+    return value == stringLiteralTag;
 }
 
 bool JsonObjectSegmenterIgnoreSignState::IsOnSwitch(char value)
@@ -73,5 +78,5 @@ bool JsonObjectSegmenterIgnoreSignState::CanToggleSwitch(const char& value)
 
 bool JsonObjectSegmenterIgnoreSignState::StringLiteralSwitchOpen()
 {
-    return std::get<2>(this->stringLiteralSwitch);
+    return std::get<2>(*this->stringLiteralSwitch);
 }

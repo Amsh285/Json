@@ -72,7 +72,11 @@ void JsonObjectSegmenter::SegmentJsonString(std::vector<std::string>& target, st
     {
         char current = source[i];
 
-        if(delimiterState.AllSwitchesOff())
+        if(delimiterState.IsStringLiteralSwitch(current) && !delimiterState.StringLiteralSwitchOpen())
+        {
+            delimiterState.ToggleSwitchOn(current);
+        }
+        else if(delimiterState.AllSwitchesOff())
         {
             if(delimiterState.IsOnSwitch(current))
                 delimiterState.ToggleSwitchOn(current);
@@ -95,21 +99,32 @@ void JsonObjectSegmenter::SegmentJsonString(std::vector<std::string>& target, st
 
     assert((delimiterState.AllSwitchesOff(), "All DelimiterState- Switches should be of."));
 
-    //Make them usable remove whitespaces and controlsigns
+    const std::string charactersToBeRemoved = "\t\n ";
 
     for(std::string& segment: target)
     {
-        for(std::string::size_type i = 0;i < segment.size();++i)
-        {
+        std::string::size_type i = 0;
+        int removeCount = 0;
 
-        }
+        while(charactersToBeRemoved.find(segment[i++]) != std::string::npos)
+            ++removeCount;
+
+        segment.erase(0, removeCount);
+
+        i = segment.size() - 1;
+        removeCount = 0;
+
+        while(charactersToBeRemoved.find(segment[i--]) != std::string::npos)
+            ++removeCount;
+
+        segment.erase(segment.size() - removeCount, removeCount);
     }
 }
 
 void JsonObjectSegmenter::PrintSegments(std::ostream* targetStream, std::vector<std::string>& source)
 {
     for(const auto& segment: source)
-        *targetStream << " - " << segment;
+        *targetStream << "|start[" << segment << "]end|" << std::endl;
 
     *targetStream << std::endl;
 }
