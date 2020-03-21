@@ -83,13 +83,16 @@
 	"JsonNode.h"
 	"JsonObject.h"
 
-1584411731 source:d:\gitprojects\json\main.cpp
+1584767039 source:d:\gitprojects\json\main.cpp
 	<iostream>
+	"JsonObjectSegmenter.h"
+	"StringHelper.h"
 	"Utilities.h"
 	"JsonObject.h"
 	"JsonValue.h"
 
-1584411557 d:\gitprojects\json\utilities.h
+1584701967 d:\gitprojects\json\utilities.h
+	<string>
 	<stdexcept>
 	<functional>
 	<vector>
@@ -98,6 +101,79 @@
 	"JsonObject.h"
 	"JsonValue.h"
 
-1584411708 source:d:\gitprojects\json\utilities.cpp
+1584689792 source:d:\gitprojects\json\utilities.cpp
 	"Utilities.h"
+
+1584734930 source:d:\gitprojects\json\jsonparser.cpp
+	"JsonParser.h"
+
+1584591508 d:\gitprojects\json\jsonparser.h
+	<assert.h>
+	<stdexcept>
+	<string>
+	<tuple>
+	<sstream>
+	"Utilities.h"
+	"JsonNode.h"
+	"JsonObject.h"
+	"JsonValue.h"
+	"JsonObjectSegmenter.h"
+
+1584774382 source:d:\gitprojects\json\jsonobjectsegmenter.cpp
+	"JsonObjectSegmenter.h"
+
+1584772331 d:\gitprojects\json\jsonobjectsegmenter.h
+	<string>
+	<tuple>
+	<vector>
+	<assert.h>
+	<stdexcept>
+	<ostream>
+	<iostream>
+	<sstream>
+	"Utilities.h"
+	"StringHelper.h"
+	"JsonObjectSegmenterIgnoreSignState.h"
+	"JsonObjectSegmenterInsideStringLiteralState.h"
+
+1584695715 d:\gitprojects\json\stringhelper.h
+	<string>
+	<vector>
+	<sstream>
+
+1584700918 source:d:\gitprojects\json\stringhelper.cpp
+	"StringHelper.h"
+
+1584774023 d:\gitprojects\json\jsonobjectsegmenterignoresignstate.h
+	<string>
+	<tuple>
+	<vector>
+	<stdexcept>
+	<assert.h>
+	<sstream>
+	"FlipSwitch.h"
+	"Utilities.h"
+	"JsonObjectSegmenterInsideStringLiteralState.h"
+
+1584774229 source:d:\gitprojects\json\jsonobjectsegmenterignoresignstate.cpp
+	"JsonObjectSegmenterIgnoreSignState.h"
+
+1584772183 d:\gitprojects\json\jsonobjectsegmenterkeyvaluepairvalidationstate.h
+	"FlipSwitch.h"
+	"Utilities.h"
+
+1584768381 source:d:\gitprojects\json\jsonobjectsegmenterkeyvaluepairvalidationstate.cpp
+	"JsonObjectSegmenterKeyValuePairValidationState.h"
+
+1584766798 source:d:\gitprojects\json\flipswitch.cpp
+	"FlipSwitch.h"
+
+1584766799 d:\gitprojects\json\flipswitch.h
+
+1584772455 d:\gitprojects\json\jsonobjectsegmenterinsidestringliteralstate.h
+	"FlipSwitch.h"
+	"Utilities.h"
+
+1584772497 source:d:\gitprojects\json\jsonobjectsegmenterinsidestringliteralstate.cpp
+	"JsonObjectSegmenterInsideStringLiteralState.h"
 

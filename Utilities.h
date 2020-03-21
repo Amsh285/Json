@@ -1,6 +1,7 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
+#include <string>
 #include <stdexcept>
 #include <functional>
 #include <vector>
@@ -9,6 +10,33 @@
 #include "JsonNode.h"
 #include "JsonObject.h"
 #include "JsonValue.h"
+
+namespace GlobalJsonDefinitions
+{
+    const char openJsonObjectTag = '{', closeJsonObjectTag = '}';
+    const char openJsonArrayTag = '[', closeJsonArrayTag = ']';
+    const char stringLiteralTag = '"';
+    const char whitespace = ' ';
+
+    const std::string JsonElementTypes[] = {
+        "JsonElementType_Object",
+        "JsonElementType_Array",
+        "JsonElementType_Value",
+        "JsonElementType_singleValue",
+        "JsonElementType_KeyValuePair",
+        "JsonElementType_Unknown"
+    };
+
+    enum JsonElementType
+    {
+        JsonElementType_Object,
+        JsonElementType_Array,
+        JsonElementType_Value,
+        JsonElementType_singleValue,
+        JsonElementType_KeyValuePair,
+        JsonElementType_Unknown
+    };
+}
 
 namespace Create
 {

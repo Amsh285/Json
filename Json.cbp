@@ -32,12 +32,24 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="FlipSwitch.cpp" />
+		<Unit filename="FlipSwitch.h" />
 		<Unit filename="JsonNode.cpp" />
 		<Unit filename="JsonNode.h" />
 		<Unit filename="JsonObject.cpp" />
 		<Unit filename="JsonObject.h" />
+		<Unit filename="JsonObjectSegmenter.cpp" />
+		<Unit filename="JsonObjectSegmenter.h" />
+		<Unit filename="JsonObjectSegmenterIgnoreSignState.cpp" />
+		<Unit filename="JsonObjectSegmenterIgnoreSignState.h" />
+		<Unit filename="JsonParser.cpp" />
+		<Unit filename="JsonParser.h" />
 		<Unit filename="JsonValue.cpp" />
 		<Unit filename="JsonValue.h" />
+		<Unit filename="StringHelper.cpp" />
+		<Unit filename="StringHelper.h" />
+		<Unit filename="Utilities.cpp" />
+		<Unit filename="Utilities.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
