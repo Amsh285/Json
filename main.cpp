@@ -76,6 +76,14 @@ int main()
     segmenter.SegmentJsonString(segments, personString, JsonElementType_Object);
     segmenter.PrintSegments(&cout, segments);
 
+    std::vector<std::string> firstNameSegments;
+    segmenter.SegmentJsonString(firstNameSegments, segments[0], JsonElementType_KeyValuePair);
+    segmenter.PrintSegments(&cout, firstNameSegments);
+
+    std::vector<std::string> alterSegments;
+    segmenter.SegmentJsonString(alterSegments, segments[1], JsonElementType_KeyValuePair);
+    segmenter.PrintSegments(&cout, alterSegments);
+
     delete person;
     delete intTest;
     delete stringTest;

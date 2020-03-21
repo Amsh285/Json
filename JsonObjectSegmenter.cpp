@@ -10,7 +10,33 @@ JsonObjectSegmenter::~JsonObjectSegmenter()
     //dtor
 }
 
-void AssertJsonObjectSegmentString(std::string& source, JsonElementType type)
+void AssertKeyValuePairSegmentString(const std::string& source)
+{
+    JsonObjectSegmenterKeyValuePairValidationState delimiterState;
+    const std::string notAllowedSigns = "{}[]";
+
+    for(std::string::size_type i = 0;i < source.size();++i)
+    {
+        const char current = source[i];
+
+        if(delimiterState.HandleState(current))
+        {
+            if(notAllowedSigns.find(current) != std::string::npos)
+            {
+                std::stringstream stream;
+                std::string errorMessage;
+
+                stream << "Invalid Sign: " << current << " found." << " Following signs: "
+                    << notAllowedSigns << " are not allowed in KeyValuePairs.";
+                stream >> errorMessage;
+
+                throw std::invalid_argument(errorMessage);
+            }
+        }
+    }
+}
+
+void AssertJsonObjectSegmentString(const std::string& source, JsonElementType type)
 {
     char openTag, closeTag;
     std::string segmentType;
@@ -54,7 +80,7 @@ void JsonObjectSegmenter::SegmentJsonString(std::vector<std::string>& target, st
 
     if(type == JsonElementType_KeyValuePair)
     {
-        // ev stringliteraltag validieren?
+        AssertKeyValuePairSegmentString(source);
         delimiter = ':';
     }
     else if(type == JsonElementType_Array || type == JsonElementType_Object)
@@ -70,7 +96,16 @@ void JsonObjectSegmenter::SegmentJsonString(std::vector<std::string>& target, st
 
     for(std::string::size_type i = 0 + offset;i < source.size() - offset;++i)
     {
-        char current = source[i];
+        const char current = source[i];
+
+        //Anforderungen: trenne nach delimiter
+        // Aber nur wenn du nicht in einem Stringliteral, Objekt oder, Array bist
+
+        // Check ob du in einem Stringliter bist wenn nicht und das zeichen startet eins begib dich in string literalmodus
+
+        // Check ob alle switches deaktiviert also in keinem string, objekt oder array
+
+        //versuche solange alle switches zu deaktivieren bis du am ende des eingabestromes bist.
 
         if(delimiterState.IsStringLiteralSwitch(current) && !delimiterState.StringLiteralSwitchOpen())
         {

@@ -13,6 +13,7 @@
 #include "Utilities.h"
 #include "StringHelper.h"
 #include "JsonObjectSegmenterIgnoreSignState.h"
+#include "JsonObjectSegmenterKeyValuePairValidationState.h"
 
 using namespace GlobalJsonDefinitions;
 

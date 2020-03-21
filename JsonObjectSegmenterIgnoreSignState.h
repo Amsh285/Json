@@ -6,10 +6,11 @@
 #include <vector>
 #include <stdexcept>
 #include <assert.h>
+#include <sstream>
 
 #include "Utilities.h"
 
-typedef std::tuple<char, char, bool> FlipSwitch;
+typedef std::tuple<char, char, bool> FlipSwitchTuple;
 
 using namespace GlobalJsonDefinitions;
 
@@ -26,16 +27,19 @@ class JsonObjectSegmenterIgnoreSignState
         bool IsStringLiteralSwitch(char value);
         bool IsOnSwitch(char value);
 
-        void ToggleSwitchOn(char switchName);
+        void ToggleSwitchOn(const char& switchName);
+        void ToggleSwitchOff(const char& switchName);
+
         void TryToggleSwitchOff(char attemptingValue);
 
     protected:
 
     private:
+        void ToggleSwitch(const char& value, const int mode);
         bool CanToggleSwitch(const char& value);
 
-        const FlipSwitch* stringLiteralSwitch;
-        std::vector<FlipSwitch> switches;
+        const FlipSwitchTuple* stringLiteralSwitch;
+        std::vector<FlipSwitchTuple> switches;
 };
 
 #endif // JSONOBJECTSEGMENTERIGNOREDELIMITERSTATE_H
