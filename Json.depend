@@ -119,10 +119,10 @@
 	"JsonValue.h"
 	"JsonObjectSegmenter.h"
 
-1584768689 source:d:\gitprojects\json\jsonobjectsegmenter.cpp
+1584774382 source:d:\gitprojects\json\jsonobjectsegmenter.cpp
 	"JsonObjectSegmenter.h"
 
-1584764989 d:\gitprojects\json\jsonobjectsegmenter.h
+1584772331 d:\gitprojects\json\jsonobjectsegmenter.h
 	<string>
 	<tuple>
 	<vector>
@@ -134,7 +134,7 @@
 	"Utilities.h"
 	"StringHelper.h"
 	"JsonObjectSegmenterIgnoreSignState.h"
-	"JsonObjectSegmenterKeyValuePairValidationState.h"
+	"JsonObjectSegmenterInsideStringLiteralState.h"
 
 1584695715 d:\gitprojects\json\stringhelper.h
 	<string>
@@ -144,19 +144,21 @@
 1584700918 source:d:\gitprojects\json\stringhelper.cpp
 	"StringHelper.h"
 
-1584766396 d:\gitprojects\json\jsonobjectsegmenterignoresignstate.h
+1584774023 d:\gitprojects\json\jsonobjectsegmenterignoresignstate.h
 	<string>
 	<tuple>
 	<vector>
 	<stdexcept>
 	<assert.h>
 	<sstream>
+	"FlipSwitch.h"
 	"Utilities.h"
+	"JsonObjectSegmenterInsideStringLiteralState.h"
 
-1584766410 source:d:\gitprojects\json\jsonobjectsegmenterignoresignstate.cpp
+1584774229 source:d:\gitprojects\json\jsonobjectsegmenterignoresignstate.cpp
 	"JsonObjectSegmenterIgnoreSignState.h"
 
-1584768574 d:\gitprojects\json\jsonobjectsegmenterkeyvaluepairvalidationstate.h
+1584772183 d:\gitprojects\json\jsonobjectsegmenterkeyvaluepairvalidationstate.h
 	"FlipSwitch.h"
 	"Utilities.h"
 
@@ -167,4 +169,11 @@
 	"FlipSwitch.h"
 
 1584766799 d:\gitprojects\json\flipswitch.h
+
+1584772455 d:\gitprojects\json\jsonobjectsegmenterinsidestringliteralstate.h
+	"FlipSwitch.h"
+	"Utilities.h"
+
+1584772497 source:d:\gitprojects\json\jsonobjectsegmenterinsidestringliteralstate.cpp
+	"JsonObjectSegmenterInsideStringLiteralState.h"
 

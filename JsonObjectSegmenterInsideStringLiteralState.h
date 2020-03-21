@@ -6,17 +6,18 @@
 
 using namespace GlobalJsonDefinitions;
 
-class JsonObjectSegmenterKeyValuePairValidationState
+class JsonObjectSegmenterInsideStringLiteralState
 {
     public:
-        JsonObjectSegmenterKeyValuePairValidationState();
-        virtual ~JsonObjectSegmenterKeyValuePairValidationState();
+        JsonObjectSegmenterInsideStringLiteralState();
+        virtual ~JsonObjectSegmenterInsideStringLiteralState();
 
         bool HandleState(const char& currentValue);
     protected:
 
     private:
-        FlipSwitch locatedInStringLiteralStateSwitch;
+        const char IdentificationToken = stringLiteralTag;
+        bool isActive;
 };
 
 #endif // JSONOBJECTSEGMENTERKEYVALUEPAIRVALIDATIONSTATE_H

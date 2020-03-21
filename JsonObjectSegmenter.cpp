@@ -12,7 +12,7 @@ JsonObjectSegmenter::~JsonObjectSegmenter()
 
 void AssertKeyValuePairSegmentString(const std::string& source)
 {
-    JsonObjectSegmenterKeyValuePairValidationState delimiterState;
+    JsonObjectSegmenterInsideStringLiteralState delimiterState;
     const std::string notAllowedSigns = "{}[]";
 
     for(std::string::size_type i = 0;i < source.size();++i)
@@ -98,35 +98,15 @@ void JsonObjectSegmenter::SegmentJsonString(std::vector<std::string>& target, st
     {
         const char current = source[i];
 
-        //Anforderungen: trenne nach delimiter
-        // Aber nur wenn du nicht in einem Stringliteral, Objekt oder, Array bist
-
-        // Check ob du in einem Stringliter bist wenn nicht und das zeichen startet eins begib dich in string literalmodus
-
-        // Check ob alle switches deaktiviert also in keinem string, objekt oder array
-
-        //versuche solange alle switches zu deaktivieren bis du am ende des eingabestromes bist.
-
-        if(delimiterState.IsStringLiteralSwitch(current) && !delimiterState.StringLiteralSwitchOpen())
+        if(delimiterState.HandleState(current) && current == delimiter)
         {
-            delimiterState.ToggleSwitchOn(current);
-        }
-        else if(delimiterState.AllSwitchesOff())
-        {
-            if(delimiterState.IsOnSwitch(current))
-                delimiterState.ToggleSwitchOn(current);
-            else if(current == delimiter)
-            {
-                std::string tmp = source.substr(startposition, i - startposition);
-                target.push_back(tmp);
+            std::string tmp = source.substr(startposition, i - startposition);
+            target.push_back(tmp);
 
-                source.erase(0, i + 1);
-                i = 0;
-                startposition = 0;
-            }
+            source.erase(0, i + 1);
+            i = 0;
+            startposition = 0;
         }
-        else
-            delimiterState.TryToggleSwitchOff(current);
     }
 
     std::string tmp = source.substr(startposition, source.size() - offset);

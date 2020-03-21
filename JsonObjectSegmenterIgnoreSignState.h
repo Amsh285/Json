@@ -8,9 +8,9 @@
 #include <assert.h>
 #include <sstream>
 
+#include "FlipSwitch.h"
 #include "Utilities.h"
-
-typedef std::tuple<char, char, bool> FlipSwitchTuple;
+#include "JsonObjectSegmenterInsideStringLiteralState.h"
 
 using namespace GlobalJsonDefinitions;
 
@@ -22,24 +22,22 @@ class JsonObjectSegmenterIgnoreSignState
 
         bool OneSwitchOn();
         bool AllSwitchesOff();
-        bool StringLiteralSwitchOpen();
 
-        bool IsStringLiteralSwitch(char value);
-        bool IsOnSwitch(char value);
-
-        void ToggleSwitchOn(const char& switchName);
-        void ToggleSwitchOff(const char& switchName);
-
-        void TryToggleSwitchOff(char attemptingValue);
+        bool HandleState(const char& currentValue);
 
     protected:
 
     private:
-        void ToggleSwitch(const char& value, const int mode);
-        bool CanToggleSwitch(const char& value);
+        bool IsOnSwitch(const char& currentValue);
+        bool IsOffSwitch(const char& currentValue);
+        void HandleOnSwitch(const char& currentValue);
+        void HandleOffSwitch(const char& currentValue);
 
-        const FlipSwitchTuple* stringLiteralSwitch;
-        std::vector<FlipSwitchTuple> switches;
+        JsonObjectSegmenterInsideStringLiteralState insideStringLiteralState;
+        FlipSwitch locatedInJsonObjectSwitch;
+        FlipSwitch locatedInJsonArraySwitch;
+
+        int openObjectTagsEncountered, openArrayTagsEncountered;
 };
 
 #endif // JSONOBJECTSEGMENTERIGNOREDELIMITERSTATE_H

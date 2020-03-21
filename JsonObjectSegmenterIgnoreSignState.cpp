@@ -1,17 +1,11 @@
 #include "JsonObjectSegmenterIgnoreSignState.h"
 
-#define ToggleOff 0
-#define ToggleOn 1
-
 JsonObjectSegmenterIgnoreSignState::JsonObjectSegmenterIgnoreSignState()
+    : locatedInJsonObjectSwitch (openJsonObjectTag, closeJsonObjectTag, false),
+    locatedInJsonArraySwitch (openJsonArrayTag, closeJsonArrayTag, false)
 {
-    this->switches = {
-        FlipSwitchTuple(openJsonObjectTag, closeJsonObjectTag, false),
-        FlipSwitchTuple(openJsonArrayTag, closeJsonArrayTag, false),
-        FlipSwitchTuple(stringLiteralTag, stringLiteralTag, false)
-    };
-
-    stringLiteralSwitch = &switches[2];
+    this->openObjectTagsEncountered = 0;
+    this->openArrayTagsEncountered = 0;
 }
 
 JsonObjectSegmenterIgnoreSignState::~JsonObjectSegmenterIgnoreSignState()
@@ -21,13 +15,8 @@ JsonObjectSegmenterIgnoreSignState::~JsonObjectSegmenterIgnoreSignState()
 
 bool JsonObjectSegmenterIgnoreSignState::OneSwitchOn()
 {
-    for(auto& sw: this->switches)
-    {
-        if(std::get<2>(sw))
-            return true;
-    }
-
-    return false;
+    return locatedInJsonObjectSwitch.IsActive()
+        || locatedInJsonArraySwitch.IsActive();
 }
 
 bool JsonObjectSegmenterIgnoreSignState::AllSwitchesOff()
@@ -35,87 +24,71 @@ bool JsonObjectSegmenterIgnoreSignState::AllSwitchesOff()
     return !OneSwitchOn();
 }
 
-bool JsonObjectSegmenterIgnoreSignState::IsStringLiteralSwitch(char value)
+bool JsonObjectSegmenterIgnoreSignState::IsOnSwitch(const char& currentValue)
 {
-    return value == stringLiteralTag;
+    return currentValue == this->locatedInJsonObjectSwitch.GetOnToken()
+        || currentValue == this->locatedInJsonArraySwitch.GetOnToken();
 }
 
-bool JsonObjectSegmenterIgnoreSignState::IsOnSwitch(char value)
+bool JsonObjectSegmenterIgnoreSignState::IsOffSwitch(const char& currentValue)
 {
-    for(auto& sw: this->switches)
+    return currentValue == this->locatedInJsonObjectSwitch.GetOffToken()
+        || currentValue == this->locatedInJsonArraySwitch.GetOffToken();
+}
+
+void JsonObjectSegmenterIgnoreSignState::HandleOnSwitch(const char& currentValue)
+{
+    assert((IsOnSwitch(currentValue), "currentValue has to be an OnToken."));
+
+    if(currentValue == locatedInJsonObjectSwitch.GetOnToken())
     {
-        if(std::get<0>(sw) == value)
-            return true;
+        if(openObjectTagsEncountered == 0)
+            locatedInJsonObjectSwitch.Toggle();
+
+        ++openObjectTagsEncountered;
     }
-
-    return false;
-}
-
-void JsonObjectSegmenterIgnoreSignState::ToggleSwitchOn(const char& switchName)
-{
-    for(auto& sw: this->switches)
+    else
     {
-        if(std::get<0>(sw) == switchName && CanToggleSwitch(switchName))
-        {
-            assert((!std::get<2>(sw), "Tried to toggle on an active switch."));
-            std::get<2>(sw) = true;
-        }
-    }
-}
+        if(openArrayTagsEncountered == 0)
+            locatedInJsonArraySwitch.Toggle();
 
-void JsonObjectSegmenterIgnoreSignState::ToggleSwitchOff(const char& value)
-{
-    ToggleSwitch(value, ToggleOff);
-}
-
-void JsonObjectSegmenterIgnoreSignState::ToggleSwitch(const char& value, const int mode)
-{
-    bool switchFound = false;
-
-    for(auto& sw: this->switches)
-    {
-        char switchToken = mode == ToggleOff ? std::get<1>(sw) : std::get<0>(sw);
-
-        if(switchToken == value)
-        {
-            assert((std::get<2>(sw), "Tried to toggle off an inactive switch."));
-            std::get<2>(sw) = false;
-            switchFound = true;
-        }
-    }
-
-    if(!switchFound)
-    {
-        std::stringstream stream;
-        std::string errorMessage;
-
-        stream << "Es wurde kein Switch für den Suchwert: " << value << " gefunden.";
-        stream >> errorMessage;
-        throw std::invalid_argument(errorMessage);
+        ++openArrayTagsEncountered;
     }
 }
 
-
-
-
-// ev wieder aus der Klasse ziehen. Sehr spezifische Logik gehört hier nicht her.
-void JsonObjectSegmenterIgnoreSignState::TryToggleSwitchOff(char attemptingValue)
+void JsonObjectSegmenterIgnoreSignState::HandleOffSwitch(const char& currentValue)
 {
-    for(auto& sw: this->switches)
-    {
-        bool currenSwitchIsOn = std::get<2>(sw);
+    assert((IsOffSwitch(currentValue), "currentValue has to be an OffToken."));
 
-        if(std::get<1>(sw) == attemptingValue && currenSwitchIsOn && CanToggleSwitch(attemptingValue))
-            std::get<2>(sw) = false;
+    if(currentValue == locatedInJsonObjectSwitch.GetOffToken())
+    {
+        --openObjectTagsEncountered;
+
+        if(openObjectTagsEncountered == 0)
+            locatedInJsonObjectSwitch.Toggle();
+    }
+    else
+    {
+        --openArrayTagsEncountered;
+
+        if(openArrayTagsEncountered == 0)
+            locatedInJsonArraySwitch.Toggle();
     }
 }
 
-bool JsonObjectSegmenterIgnoreSignState::CanToggleSwitch(const char& value)
+bool JsonObjectSegmenterIgnoreSignState::HandleState(const char& currentValue)
 {
-    return value == stringLiteralTag || !StringLiteralSwitchOpen();
-}
+    bool canExecute = this->insideStringLiteralState.HandleState(currentValue);
 
-bool JsonObjectSegmenterIgnoreSignState::StringLiteralSwitchOpen()
-{
-    return std::get<2>(*this->stringLiteralSwitch);
+    if(canExecute)
+    {
+        canExecute = AllSwitchesOff();
+
+        if(IsOnSwitch(currentValue))
+            HandleOnSwitch(currentValue);
+        else if(IsOffSwitch(currentValue))
+            HandleOffSwitch(currentValue);
+    }
+
+    return canExecute;
 }
