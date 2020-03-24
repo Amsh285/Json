@@ -42,6 +42,8 @@
 		<Unit filename="JsonObjectSegmenter.h" />
 		<Unit filename="JsonObjectSegmenterIgnoreSignState.cpp" />
 		<Unit filename="JsonObjectSegmenterIgnoreSignState.h" />
+		<Unit filename="JsonObjectSegmenterInsideStringLiteralState.cpp" />
+		<Unit filename="JsonObjectSegmenterInsideStringLiteralState.h" />
 		<Unit filename="JsonParser.cpp" />
 		<Unit filename="JsonParser.h" />
 		<Unit filename="JsonValue.cpp" />
