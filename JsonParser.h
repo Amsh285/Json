@@ -1,6 +1,7 @@
 #ifndef JSONPARSER_H
 #define JSONPARSER_H
 
+#include <algorithm>
 #include <assert.h>
 #include <stdexcept>
 #include <string>
@@ -10,8 +11,12 @@
 #include "Utilities.h"
 #include "JsonNode.h"
 #include "JsonObject.h"
-#include "JsonValue.h"
+#include "JsonObjectIdentifier.h"
 #include "JsonObjectSegmenter.h"
+#include "JsonParserException.h"
+#include "JsonValue.h"
+#include "StringHelper.h"
+
 
 using namespace GlobalJsonDefinitions;
 
@@ -26,6 +31,12 @@ class JsonParser
 
     private:
         JsonObjectSegmenter objectSegmenter;
+        JsonObjectIdentifier objectIdentifier;
+
+        void ParseJsonKeyValuePair(const std::string& objectSegment, JsonObject* parent);
+        JsonNode* ParseJsonObject(const std::string& objectSegment, std::string name, JsonObject* parent);
+        JsonNode* ProcessSingleJsonValue(const std::string& value, const std::string& name, JsonObject* parent);
+
 };
 
 #endif // JSONPARSER_H

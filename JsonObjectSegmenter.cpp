@@ -12,7 +12,7 @@ JsonObjectSegmenter::~JsonObjectSegmenter()
 
 void AssertKeyValuePairSegmentString(const std::string& source)
 {
-    JsonObjectSegmenterInsideStringLiteralState delimiterState;
+    InsideStringLiteralState delimiterState;
     const std::string notAllowedSigns = "{}[]";
 
     for(std::string::size_type i = 0;i < source.size();++i)
@@ -70,7 +70,7 @@ void AssertJsonObjectSegmentString(const std::string& source, JsonElementType ty
 
 void JsonObjectSegmenter::SegmentJsonString(std::vector<std::string>& target, std::string source, JsonElementType type)
 {
-    if(type == JsonElementType_singleValue || type == JsonElementType_Unknown)
+    if(type == JsonElementType_SingleValue || type == JsonElementType_Unknown)
         throw std::invalid_argument("JsonElementType: " + JsonElementTypes[type] + " is not supported." );
 
     stringhelper::Trim(source);

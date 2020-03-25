@@ -7,8 +7,7 @@
 
 namespace stringhelper
 {
-    template<class TContainer>
-    void Split(TContainer target, std::string& source, char delimiter);
+    void Split(std::vector<std::string>& target,const std::string& source, char delimiter);
 
     std::string TrimCopy(std::string target);
 

@@ -38,6 +38,8 @@
 		<Unit filename="JsonNode.h" />
 		<Unit filename="JsonObject.cpp" />
 		<Unit filename="JsonObject.h" />
+		<Unit filename="JsonObjectIdentifier.cpp" />
+		<Unit filename="JsonObjectIdentifier.h" />
 		<Unit filename="JsonObjectSegmenter.cpp" />
 		<Unit filename="JsonObjectSegmenter.h" />
 		<Unit filename="JsonObjectSegmenterIgnoreSignState.cpp" />

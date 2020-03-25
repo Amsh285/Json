@@ -11,6 +11,7 @@
 #include "JsonObject.h"
 #include "JsonValue.h"
 
+//Todo: Refactor
 namespace GlobalJsonDefinitions
 {
     const char openJsonObjectTag = '{', closeJsonObjectTag = '}';
@@ -18,11 +19,14 @@ namespace GlobalJsonDefinitions
     const char stringLiteralTag = '"';
     const char whitespace = ' ';
 
+    const char elementDelimiter = ',';
+    const char keyValuePairDelimiter = ':';
+
     const std::string JsonElementTypes[] = {
         "JsonElementType_Object",
         "JsonElementType_Array",
         "JsonElementType_Value",
-        "JsonElementType_singleValue",
+        "JsonElementType_SingleValue",
         "JsonElementType_KeyValuePair",
         "JsonElementType_Unknown"
     };
@@ -32,7 +36,7 @@ namespace GlobalJsonDefinitions
         JsonElementType_Object,
         JsonElementType_Array,
         JsonElementType_Value,
-        JsonElementType_singleValue,
+        JsonElementType_SingleValue,
         JsonElementType_KeyValuePair,
         JsonElementType_Unknown
     };

@@ -10,7 +10,7 @@
 
 #include "FlipSwitch.h"
 #include "Utilities.h"
-#include "JsonObjectSegmenterInsideStringLiteralState.h"
+#include "InsideStringLiteralState.h"
 
 using namespace GlobalJsonDefinitions;
 
@@ -33,7 +33,7 @@ class JsonObjectSegmenterIgnoreSignState
         void HandleOnSwitch(const char& currentValue);
         void HandleOffSwitch(const char& currentValue);
 
-        JsonObjectSegmenterInsideStringLiteralState insideStringLiteralState;
+        InsideStringLiteralState insideStringLiteralState;
         FlipSwitch locatedInJsonObjectSwitch;
         FlipSwitch locatedInJsonArraySwitch;
 
