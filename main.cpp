@@ -6,8 +6,11 @@
 #include "Utilities.h"
 #include "JsonObject.h"
 #include "JsonValue.h"
+#include "JsonParser.h"
 
 using namespace std;
+
+void TestJsonParser(std::string value);
 
 int main()
 {
@@ -84,9 +87,24 @@ int main()
     segmenter.SegmentJsonString(alterSegments, segments[1], JsonElementType_KeyValuePair);
     segmenter.PrintSegments(&cout, alterSegments);
 
+    cout << endl << "TestJsonParser(personString)" << endl;
+    TestJsonParser(personString);
+
     delete person;
     delete intTest;
     delete stringTest;
 
     return 0;
+}
+
+void TestJsonParser(std::string value)
+{
+    JsonParser parser;
+    JsonNode* root = parser.ParseJsonString(value);
+
+    std::string result = root->ToJsonString();
+
+    cout << result << endl;
+
+    delete root;
 }

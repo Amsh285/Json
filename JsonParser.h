@@ -35,8 +35,10 @@ class JsonParser
 
         void ParseJsonKeyValuePair(const std::string& objectSegment, JsonObject* parent);
         JsonNode* ParseJsonObject(const std::string& objectSegment, std::string name, JsonObject* parent);
+        JsonNode* ParseJsonArray(const std::string& objectSegment, std::string name, JsonObject* parent);
         JsonNode* ProcessSingleJsonValue(const std::string& value, const std::string& name, JsonObject* parent);
 
+        std::string GetNormalizedName(const std::string name);
 };
 
 #endif // JSONPARSER_H

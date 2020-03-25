@@ -10,32 +10,6 @@ JsonObjectSegmenter::~JsonObjectSegmenter()
     //dtor
 }
 
-void AssertKeyValuePairSegmentString(const std::string& source)
-{
-    InsideStringLiteralState delimiterState;
-    const std::string notAllowedSigns = "{}[]";
-
-    for(std::string::size_type i = 0;i < source.size();++i)
-    {
-        const char current = source[i];
-
-        if(delimiterState.HandleState(current))
-        {
-            if(notAllowedSigns.find(current) != std::string::npos)
-            {
-                std::stringstream stream;
-                std::string errorMessage;
-
-                stream << "Invalid Sign: " << current << " found." << " Following signs: "
-                    << notAllowedSigns << " are not allowed in KeyValuePairs.";
-                stream >> errorMessage;
-
-                throw std::invalid_argument(errorMessage);
-            }
-        }
-    }
-}
-
 void AssertJsonObjectSegmentString(const std::string& source, JsonElementType type)
 {
     char openTag, closeTag;
@@ -58,11 +32,8 @@ void AssertJsonObjectSegmentString(const std::string& source, JsonElementType ty
 
     if(!(stringhelper::StartsWith(source, openTag) && stringhelper::EndsWith(source, closeTag)))
     {
-        std::stringstream stream;
-        std::string errorMessage;
-        stream << "Invalid " << segmentType << ": source must start with: " << openJsonObjectTag
-            << " and end with: " << closeJsonObjectTag;
-        stream >> errorMessage;
+        std::string errorMessage = "Invalid " + segmentType + ": source must start with: " +
+            std::to_string(openJsonObjectTag) + " and end with: " + std::to_string(closeJsonObjectTag);
 
         throw std::invalid_argument(errorMessage);
     }
@@ -79,10 +50,7 @@ void JsonObjectSegmenter::SegmentJsonString(std::vector<std::string>& target, st
     char delimiter;
 
     if(type == JsonElementType_KeyValuePair)
-    {
-        AssertKeyValuePairSegmentString(source);
         delimiter = ':';
-    }
     else if(type == JsonElementType_Array || type == JsonElementType_Object)
     {
         AssertJsonObjectSegmentString(source, type);
