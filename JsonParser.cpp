@@ -148,7 +148,7 @@ JsonNode* JsonParser::ParseJsonArray(const std::string& objectSegment, std::stri
         IdentificationResult identification = objectIdentifier.IdentifyElement(segment);
         JsonElementType elementType = identification.GetElementType();
 
-        ValidateJsonElementType(JsonElementType_Object, identification, {JsonElementType_Object, JsonElementType_Array, JsonElementType_SingleValue} );
+        ValidateJsonElementType(JsonElementType_Array, identification, {JsonElementType_Object, JsonElementType_Array, JsonElementType_SingleValue} );
 
         if(elementType == JsonElementType_Object)
             ParseJsonObject(segment, "", result);

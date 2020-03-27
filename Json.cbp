@@ -34,20 +34,24 @@
 		</Compiler>
 		<Unit filename="FlipSwitch.cpp" />
 		<Unit filename="FlipSwitch.h" />
+		<Unit filename="InsideStringLiteralState.cpp" />
+		<Unit filename="InsideStringLiteralState.h" />
 		<Unit filename="JsonNode.cpp" />
 		<Unit filename="JsonNode.h" />
 		<Unit filename="JsonObject.cpp" />
 		<Unit filename="JsonObject.h" />
+		<Unit filename="JsonObjectIdentficationException.cpp" />
+		<Unit filename="JsonObjectIdentficationException.h" />
 		<Unit filename="JsonObjectIdentifier.cpp" />
 		<Unit filename="JsonObjectIdentifier.h" />
 		<Unit filename="JsonObjectSegmenter.cpp" />
 		<Unit filename="JsonObjectSegmenter.h" />
 		<Unit filename="JsonObjectSegmenterIgnoreSignState.cpp" />
 		<Unit filename="JsonObjectSegmenterIgnoreSignState.h" />
-		<Unit filename="JsonObjectSegmenterInsideStringLiteralState.cpp" />
-		<Unit filename="JsonObjectSegmenterInsideStringLiteralState.h" />
 		<Unit filename="JsonParser.cpp" />
 		<Unit filename="JsonParser.h" />
+		<Unit filename="JsonParserException.cpp" />
+		<Unit filename="JsonParserException.h" />
 		<Unit filename="JsonValue.cpp" />
 		<Unit filename="JsonValue.h" />
 		<Unit filename="StringHelper.cpp" />

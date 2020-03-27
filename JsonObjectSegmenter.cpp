@@ -47,6 +47,7 @@ void JsonObjectSegmenter::SegmentJsonString(std::vector<std::string>& target, st
     stringhelper::Trim(source);
 
     std::string::size_type offset = 0;
+    unsigned int numberOfFoundDelimiters = 0;
     char delimiter;
 
     if(type == JsonElementType_KeyValuePair)
@@ -72,12 +73,19 @@ void JsonObjectSegmenter::SegmentJsonString(std::vector<std::string>& target, st
             target.push_back(tmp);
 
             source.erase(0, i + 1);
-            i = 0;
+            i = -1;
             startposition = 0;
+            ++numberOfFoundDelimiters;
         }
     }
 
-    std::string tmp = source.substr(startposition, source.size() - offset);
+    std::string tmp;
+
+    if(numberOfFoundDelimiters == 0)
+        tmp = source.substr(startposition, source.size() - (offset + 1));
+    else
+        tmp = source.substr(startposition, source.size() - offset);
+
     target.push_back(tmp);
 
     assert((delimiterState.AllSwitchesOff(), "All DelimiterState- Switches should be of."));
