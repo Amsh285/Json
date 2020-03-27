@@ -6,7 +6,10 @@ JsonObject::JsonObject(std::string name, JsonObject* parent, JsonObjectType obje
     this->objectType = objectType;
 
     if(parent != nullptr)
+    {
         parent->AddChild(this);
+        depth = parent->GetDepth() + 1;
+    }
 }
 
 JsonObject::~JsonObject()
@@ -68,6 +71,5 @@ void JsonObject::AddChild(JsonNode *child)
     if(child == nullptr)
         throw std::invalid_argument("child cannot be null.");
 
-    child->IncreaseDepth();
     this->children.push_back(child);
 }

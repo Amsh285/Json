@@ -13,6 +13,7 @@ using namespace std;
 void TestObjectSegmenter(std::string value);
 void TestJsonParser(std::string value);
 void TestArrayParser();
+void TestShare();
 
 int main()
 {
@@ -77,13 +78,16 @@ int main()
 
 
     cout << endl << "TestObjectSegmenter(personString)" << endl;
-    //TestObjectSegmenter(personString);
+    TestObjectSegmenter(personString);
 
     cout << endl << "TestJsonParser(personString)" << endl;
-    //TestJsonParser(personString);
+    TestJsonParser(personString);
 
     cout << endl << "TestArrayParser()" << endl;
     TestArrayParser();
+
+    cout << endl << "TestShare()" << endl;
+    TestShare();
 
     delete person;
     delete intTest;
@@ -125,6 +129,18 @@ void TestArrayParser()
 {
     JsonParser parser;
     JsonNode* root = parser.ParseJsonString("[123,\"456\",{\"name\":\"BADGERS\"}]");
+
+    std::string result = root->ToJsonString();
+
+    cout << result << endl;
+
+    delete root;
+}
+
+void TestShare()
+{
+    JsonParser parser;
+    JsonNode* root = parser.ParseJsonString("[{\"Name\" : \"Microsoft\", \"Kuerzel\":\"MSFT\", \"entries\" : [{\"Datum\":\"27.03.2020\"},{\"Datum\":\"28.03.2020\"}] }]");
 
     std::string result = root->ToJsonString();
 

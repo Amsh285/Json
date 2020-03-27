@@ -7,7 +7,10 @@ JsonValue::JsonValue(std::string name, std::string value, JsonObject* parent) : 
     this->parent = parent;
 
     if(parent != nullptr)
+    {
         parent->AddChild(this);
+        depth = parent->GetDepth() + 1;
+    }
 }
 
 JsonValue::~JsonValue()
