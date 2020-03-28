@@ -5,7 +5,7 @@
 
 #include "InsideStringLiteralState.h"
 #include "JsonObjectIdentficationException.h"
-#include "Utilities.h"
+#include "JsonUtilities.h"
 
 
 using namespace GlobalJsonDefinitions;

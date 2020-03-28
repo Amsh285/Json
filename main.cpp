@@ -3,7 +3,7 @@
 #include "JsonObjectSegmenter.h"
 
 #include "StringHelper.h"
-#include "Utilities.h"
+#include "JsonUtilities.h"
 #include "JsonObject.h"
 #include "JsonValue.h"
 #include "JsonParser.h"
