@@ -52,12 +52,12 @@
 		<Unit filename="JsonParser.h" />
 		<Unit filename="JsonParserException.cpp" />
 		<Unit filename="JsonParserException.h" />
+		<Unit filename="JsonUtilities.cpp" />
+		<Unit filename="JsonUtilities.h" />
 		<Unit filename="JsonValue.cpp" />
 		<Unit filename="JsonValue.h" />
 		<Unit filename="StringHelper.cpp" />
 		<Unit filename="StringHelper.h" />
-		<Unit filename="Utilities.cpp" />
-		<Unit filename="Utilities.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
