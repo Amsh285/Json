@@ -2,8 +2,7 @@
 
 namespace stringhelper
 {
-    template<class TContainer>
-    void Split(TContainer target, std::string& source, char delimiter)
+    void Split(std::vector<std::string>& target,const std::string& source, char delimiter)
     {
         std::stringstream stream(source);
         std::string token;
@@ -65,7 +64,7 @@ namespace stringhelper
 
     bool EndsWith(const std::string& target, const char value)
     {
-        return target.size() >= 0 && target[target.size() - 1] == value;
+        return target[target.size() - 1] == value;
     }
 
     bool EndsWith(const std::string& target, const std::string& value)

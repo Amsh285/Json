@@ -16,8 +16,3 @@ JsonNode::~JsonNode()
 {
     //dtor
 }
-
-void JsonNode::IncreaseDepth()
-{
-    ++depth;
-}

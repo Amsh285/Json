@@ -6,8 +6,14 @@
 #include "Utilities.h"
 #include "JsonObject.h"
 #include "JsonValue.h"
+#include "JsonParser.h"
 
 using namespace std;
+
+void TestObjectSegmenter(std::string value);
+void TestJsonParser(std::string value);
+void TestArrayParser();
+void TestShare();
 
 int main()
 {
@@ -70,10 +76,32 @@ int main()
     cout << "|" << conclusio << "| - |" << conclusioCopy << "|" << endl;
     cout << "StartsWith: " << stringhelper::StartsWith("ebene", "eb") << " - " << "EndsWith: " << stringhelper::EndsWith("ebene", "ne") << endl;
 
+
+    cout << endl << "TestObjectSegmenter(personString)" << endl;
+    TestObjectSegmenter(personString);
+
+    cout << endl << "TestJsonParser(personString)" << endl;
+    TestJsonParser(personString);
+
+    cout << endl << "TestArrayParser()" << endl;
+    TestArrayParser();
+
+    cout << endl << "TestShare()" << endl;
+    TestShare();
+
+    delete person;
+    delete intTest;
+    delete stringTest;
+
+    return 0;
+}
+
+void TestObjectSegmenter(std::string value)
+{
     std::vector<std::string> segments;
 
     JsonObjectSegmenter segmenter;
-    segmenter.SegmentJsonString(segments, personString, JsonElementType_Object);
+    segmenter.SegmentJsonString(segments, value, JsonElementType_Object);
     segmenter.PrintSegments(&cout, segments);
 
     std::vector<std::string> firstNameSegments;
@@ -83,10 +111,40 @@ int main()
     std::vector<std::string> alterSegments;
     segmenter.SegmentJsonString(alterSegments, segments[1], JsonElementType_KeyValuePair);
     segmenter.PrintSegments(&cout, alterSegments);
+}
 
-    delete person;
-    delete intTest;
-    delete stringTest;
+void TestJsonParser(std::string value)
+{
+    JsonParser parser;
+    JsonNode* root = parser.ParseJsonString(value);
 
-    return 0;
+    std::string result = root->ToJsonString();
+
+    cout << result << endl;
+
+    delete root;
+}
+
+void TestArrayParser()
+{
+    JsonParser parser;
+    JsonNode* root = parser.ParseJsonString("[123,\"456\",{\"name\":\"BADGERS\"}]");
+
+    std::string result = root->ToJsonString();
+
+    cout << result << endl;
+
+    delete root;
+}
+
+void TestShare()
+{
+    JsonParser parser;
+    JsonNode* root = parser.ParseJsonString("[{\"Name\" : \"Microsoft\", \"Kuerzel\":\"MSFT\", \"entries\" : [{\"Datum\":\"27.03.2020\"},{\"Datum\":\"28.03.2020\"}] }]");
+
+    std::string result = root->ToJsonString();
+
+    cout << result << endl;
+
+    delete root;
 }

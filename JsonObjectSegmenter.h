@@ -13,7 +13,7 @@
 #include "Utilities.h"
 #include "StringHelper.h"
 #include "JsonObjectSegmenterIgnoreSignState.h"
-#include "JsonObjectSegmenterInsideStringLiteralState.h"
+#include "InsideStringLiteralState.h"
 
 using namespace GlobalJsonDefinitions;
 

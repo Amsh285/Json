@@ -10,32 +10,6 @@ JsonObjectSegmenter::~JsonObjectSegmenter()
     //dtor
 }
 
-void AssertKeyValuePairSegmentString(const std::string& source)
-{
-    JsonObjectSegmenterInsideStringLiteralState delimiterState;
-    const std::string notAllowedSigns = "{}[]";
-
-    for(std::string::size_type i = 0;i < source.size();++i)
-    {
-        const char current = source[i];
-
-        if(delimiterState.HandleState(current))
-        {
-            if(notAllowedSigns.find(current) != std::string::npos)
-            {
-                std::stringstream stream;
-                std::string errorMessage;
-
-                stream << "Invalid Sign: " << current << " found." << " Following signs: "
-                    << notAllowedSigns << " are not allowed in KeyValuePairs.";
-                stream >> errorMessage;
-
-                throw std::invalid_argument(errorMessage);
-            }
-        }
-    }
-}
-
 void AssertJsonObjectSegmentString(const std::string& source, JsonElementType type)
 {
     char openTag, closeTag;
@@ -58,11 +32,8 @@ void AssertJsonObjectSegmentString(const std::string& source, JsonElementType ty
 
     if(!(stringhelper::StartsWith(source, openTag) && stringhelper::EndsWith(source, closeTag)))
     {
-        std::stringstream stream;
-        std::string errorMessage;
-        stream << "Invalid " << segmentType << ": source must start with: " << openJsonObjectTag
-            << " and end with: " << closeJsonObjectTag;
-        stream >> errorMessage;
+        std::string errorMessage = "Invalid " + segmentType + ": source must start with: " +
+            std::to_string(openJsonObjectTag) + " and end with: " + std::to_string(closeJsonObjectTag);
 
         throw std::invalid_argument(errorMessage);
     }
@@ -70,19 +41,17 @@ void AssertJsonObjectSegmentString(const std::string& source, JsonElementType ty
 
 void JsonObjectSegmenter::SegmentJsonString(std::vector<std::string>& target, std::string source, JsonElementType type)
 {
-    if(type == JsonElementType_singleValue || type == JsonElementType_Unknown)
+    if(type == JsonElementType_SingleValue || type == JsonElementType_Unknown)
         throw std::invalid_argument("JsonElementType: " + JsonElementTypes[type] + " is not supported." );
 
     stringhelper::Trim(source);
 
     std::string::size_type offset = 0;
+    unsigned int numberOfFoundDelimiters = 0;
     char delimiter;
 
     if(type == JsonElementType_KeyValuePair)
-    {
-        AssertKeyValuePairSegmentString(source);
         delimiter = ':';
-    }
     else if(type == JsonElementType_Array || type == JsonElementType_Object)
     {
         AssertJsonObjectSegmentString(source, type);
@@ -104,12 +73,19 @@ void JsonObjectSegmenter::SegmentJsonString(std::vector<std::string>& target, st
             target.push_back(tmp);
 
             source.erase(0, i + 1);
-            i = 0;
+            i = -1;
             startposition = 0;
+            ++numberOfFoundDelimiters;
         }
     }
 
-    std::string tmp = source.substr(startposition, source.size() - offset);
+    std::string tmp;
+
+    if(numberOfFoundDelimiters == 0)
+        tmp = source.substr(startposition, source.size() - (offset + 1));
+    else
+        tmp = source.substr(startposition, source.size() - offset);
+
     target.push_back(tmp);
 
     assert((delimiterState.AllSwitchesOff(), "All DelimiterState- Switches should be of."));

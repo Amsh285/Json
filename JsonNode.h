@@ -9,7 +9,8 @@ class JsonNode
         virtual ~JsonNode();
         virtual std::string ToJsonString() = 0;
 
-        void IncreaseDepth();
+        int GetDepth() const { return depth; };
+
     protected:
         JsonNode();
         JsonNode(std::string name);
