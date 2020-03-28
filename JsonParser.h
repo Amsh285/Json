@@ -8,7 +8,7 @@
 #include <tuple>
 #include <sstream>
 
-#include "Utilities.h"
+#include "JsonUtilities.h"
 #include "JsonNode.h"
 #include "JsonObject.h"
 #include "JsonObjectIdentifier.h"

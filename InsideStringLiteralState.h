@@ -2,7 +2,7 @@
 #define INSIDESTRINGLITERALSTATE_H
 
 #include "FlipSwitch.h"
-#include "Utilities.h"
+#include "JsonUtilities.h"
 
 using namespace GlobalJsonDefinitions;
 

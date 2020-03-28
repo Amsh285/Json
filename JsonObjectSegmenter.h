@@ -10,7 +10,7 @@
 #include<iostream>
 #include<sstream>
 
-#include "Utilities.h"
+#include "JsonUtilities.h"
 #include "StringHelper.h"
 #include "JsonObjectSegmenterIgnoreSignState.h"
 #include "InsideStringLiteralState.h"

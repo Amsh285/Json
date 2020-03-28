@@ -9,7 +9,7 @@
 #include <sstream>
 
 #include "FlipSwitch.h"
-#include "Utilities.h"
+#include "JsonUtilities.h"
 #include "InsideStringLiteralState.h"
 
 using namespace GlobalJsonDefinitions;
