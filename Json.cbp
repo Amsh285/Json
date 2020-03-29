@@ -34,6 +34,8 @@
 		</Compiler>
 		<Unit filename="FlipSwitch.cpp" />
 		<Unit filename="FlipSwitch.h" />
+		<Unit filename="GlobalJsonDefinitions.cpp" />
+		<Unit filename="GlobalJsonDefinitions.h" />
 		<Unit filename="InsideStringLiteralState.cpp" />
 		<Unit filename="InsideStringLiteralState.h" />
 		<Unit filename="JsonNode.cpp" />
