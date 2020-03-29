@@ -1,5 +1,7 @@
 #include "JsonObjectSegmenterIgnoreSignState.h"
 
+using namespace GlobalJsonDefinitions;
+
 JsonObjectSegmenterIgnoreSignState::JsonObjectSegmenterIgnoreSignState()
     : locatedInJsonObjectSwitch (openJsonObjectTag, closeJsonObjectTag, false),
     locatedInJsonArraySwitch (openJsonArrayTag, closeJsonArrayTag, false)

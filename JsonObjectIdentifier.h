@@ -7,22 +7,17 @@
 #include "JsonObjectIdentficationException.h"
 #include "JsonUtilities.h"
 
-
-using namespace GlobalJsonDefinitions;
-
-//typedef std::tuple<std::string::size_type, JsonElementType> ;
-
 class IdentificationResult
 {
     public:
-        IdentificationResult(std::string::size_type position, JsonElementType elementType);
+        IdentificationResult(std::string::size_type position, GlobalJsonDefinitions::JsonElementType elementType);
         virtual ~IdentificationResult();
 
         std::string::size_type GetPosition() const { return position; };
-        JsonElementType GetElementType() const { return elementType; };
+        GlobalJsonDefinitions::JsonElementType GetElementType() const { return elementType; };
     private:
         std::string::size_type position;
-        JsonElementType elementType;
+        GlobalJsonDefinitions::JsonElementType elementType;
 };
 
 class JsonObjectIdentifier

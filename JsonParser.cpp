@@ -30,7 +30,7 @@ std::string BuildJsonOpenCloseTagUnEqualErrorMessage(char openTag, std::size_t o
 void ValidateJsonFormat(const std::string& value)
 {
     if(value == "")
-        throw new std::invalid_argument("value cannot be empty.");
+        throw std::invalid_argument("value cannot be empty.");
 
     std::size_t numOfopenJsonObjectTags = 0, numOfcloseJsonObjectTags = 0, numOfopenJsonArrayTags = 0, numOfcloseJsonArrayTags = 0,
         numOfStringLiteralTags = 0;
@@ -39,7 +39,9 @@ void ValidateJsonFormat(const std::string& value)
 
     for(std::string::size_type i = 0;i < value.size();++i)
     {
-        if(value[i] == stringLiteralTag)
+        char current = value[i];
+
+        if(value[i] == GlobalJsonDefinitions::stringLiteralTag)
         {
             ++numOfStringLiteralTags;
             stringliteralOpen = !stringliteralOpen;
@@ -48,13 +50,13 @@ void ValidateJsonFormat(const std::string& value)
         //Tags in Stringliterals do not count for Object or Array interpretation.
         if(!stringliteralOpen)
         {
-            if(value[i] == openJsonObjectTag)
+            if(value[i] == GlobalJsonDefinitions::openJsonObjectTag)
                 ++numOfopenJsonObjectTags;
-            else if(value[i] == closeJsonObjectTag)
+            else if(value[i] == GlobalJsonDefinitions::closeJsonObjectTag)
                 ++numOfcloseJsonObjectTags;
-            else if(value[i] == openJsonArrayTag)
+            else if(value[i] == GlobalJsonDefinitions::openJsonArrayTag)
                 ++numOfopenJsonArrayTags;
-            else if(value[i] == closeJsonArrayTag)
+            else if(value[i] == GlobalJsonDefinitions::closeJsonArrayTag)
                 ++numOfcloseJsonArrayTags;
         }
     }
@@ -62,9 +64,9 @@ void ValidateJsonFormat(const std::string& value)
     if(stringliteralOpen)
         throw std::invalid_argument(BuildJsonStringLiteralTagCountOddErrorMessage(numOfStringLiteralTags));
     if(numOfopenJsonObjectTags != numOfcloseJsonObjectTags)
-        throw std::invalid_argument(BuildJsonOpenCloseTagUnEqualErrorMessage(openJsonObjectTag, numOfopenJsonObjectTags, closeJsonObjectTag, numOfcloseJsonObjectTags));
+        throw std::invalid_argument(BuildJsonOpenCloseTagUnEqualErrorMessage(GlobalJsonDefinitions::openJsonObjectTag, numOfopenJsonObjectTags, GlobalJsonDefinitions::closeJsonObjectTag, numOfcloseJsonObjectTags));
     if(numOfopenJsonArrayTags != numOfcloseJsonArrayTags)
-        throw std::invalid_argument(BuildJsonOpenCloseTagUnEqualErrorMessage(openJsonArrayTag, numOfopenJsonArrayTags, closeJsonArrayTag, numOfcloseJsonArrayTags));
+        throw std::invalid_argument(BuildJsonOpenCloseTagUnEqualErrorMessage(GlobalJsonDefinitions::openJsonArrayTag, numOfopenJsonArrayTags, GlobalJsonDefinitions::closeJsonArrayTag, numOfcloseJsonArrayTags));
 }
 
 /* Gültigkeiten
@@ -72,10 +74,10 @@ void ValidateJsonFormat(const std::string& value)
     Array { Object, Array, singlevalue }
     KeyValuePair { Object, Array, Singlevalue }
 */
-void ValidateJsonElementType(JsonElementType parentType, IdentificationResult segmentType, std::vector<JsonElementType> allowedTypes)
+void ValidateJsonElementType(GlobalJsonDefinitions::JsonElementType parentType, IdentificationResult segmentType, std::vector<GlobalJsonDefinitions::JsonElementType> allowedTypes)
 {
-    std::string errorMessage = "Der Elementtyp: " + JsonElementTypes[segmentType.GetElementType()] +
-        " ist nicht erlaubt fuer den Elementtypen: " + JsonElementTypes[parentType];
+    std::string errorMessage = "Der Elementtyp: " + GlobalJsonDefinitions::JsonElementTypes[segmentType.GetElementType()] +
+        " ist nicht erlaubt fuer den Elementtypen: " + GlobalJsonDefinitions::JsonElementTypes[parentType];
 
     if(!(std::find(allowedTypes.begin(), allowedTypes.end(), segmentType.GetElementType()) != allowedTypes.end()))
         throw JsonParserException(errorMessage);
@@ -88,21 +90,21 @@ void JsonParser::ParseJsonKeyValuePair(const std::string& objectSegment, JsonObj
 
     std::vector<std::string> keyValuePair;
 
-    objectSegmenter.SegmentJsonString(keyValuePair, objectSegment, JsonElementType_KeyValuePair);
+    objectSegmenter.SegmentJsonString(keyValuePair, objectSegment, GlobalJsonDefinitions::JsonElementType_KeyValuePair);
 
     if(keyValuePair.size() != 2)
         throw JsonParserException("ParseJsonKeyValuePair: expected keyValuePair.size() == 2, but was: " + std::to_string(keyValuePair.size()));
 
     IdentificationResult result = objectIdentifier.IdentifyElement(keyValuePair[1]);
-    JsonElementType elementType = result.GetElementType();
+    GlobalJsonDefinitions::JsonElementType elementType = result.GetElementType();
 
-    ValidateJsonElementType(JsonElementType_KeyValuePair, result, {JsonElementType_Object, JsonElementType_Array, JsonElementType_SingleValue});
+    ValidateJsonElementType(GlobalJsonDefinitions::JsonElementType_KeyValuePair, result, {GlobalJsonDefinitions::JsonElementType_Object, GlobalJsonDefinitions::JsonElementType_Array, GlobalJsonDefinitions::JsonElementType_SingleValue});
 
-    if(elementType == JsonElementType_Object)
+    if(elementType == GlobalJsonDefinitions::JsonElementType_Object)
         ParseJsonObject(keyValuePair[1], keyValuePair[0], parent);
-    else if(elementType == JsonElementType_Array)
+    else if(elementType == GlobalJsonDefinitions::JsonElementType_Array)
         ParseJsonArray(keyValuePair[1], keyValuePair[0], parent);
-    else if(elementType == JsonElementType_SingleValue)
+    else if(elementType == GlobalJsonDefinitions::JsonElementType_SingleValue)
         ProcessSingleJsonValue(keyValuePair[1], keyValuePair[0], parent);
 }
 
@@ -110,7 +112,7 @@ JsonNode* JsonParser::ParseJsonObject(const std::string& objectSegment, std::str
 {
     std::vector<std::string> segments;
 
-    objectSegmenter.SegmentJsonString(segments, objectSegment, JsonElementType_Object);
+    objectSegmenter.SegmentJsonString(segments, objectSegment, GlobalJsonDefinitions::JsonElementType_Object);
     std::string normalizedName = GetNormalizedName(name);
 
     JsonObject* result = Create::A.JsonObject()
@@ -122,7 +124,7 @@ JsonNode* JsonParser::ParseJsonObject(const std::string& objectSegment, std::str
     for(const std::string& segment : segments)
     {
         IdentificationResult identification = objectIdentifier.IdentifyElement(segment);
-        ValidateJsonElementType(JsonElementType_Object, identification, {JsonElementType_KeyValuePair} );
+        ValidateJsonElementType(GlobalJsonDefinitions::JsonElementType_Object, identification, {GlobalJsonDefinitions::JsonElementType_KeyValuePair} );
 
         ParseJsonKeyValuePair(segment, result);
     }
@@ -134,7 +136,7 @@ JsonNode* JsonParser::ParseJsonArray(const std::string& objectSegment, std::stri
 {
     std::vector<std::string> segments;
 
-    objectSegmenter.SegmentJsonString(segments, objectSegment, JsonElementType_Array);
+    objectSegmenter.SegmentJsonString(segments, objectSegment, GlobalJsonDefinitions::JsonElementType_Array);
     std::string normalizedName = GetNormalizedName(name);
 
     JsonObject* result = Create::A.JsonObject()
@@ -146,15 +148,15 @@ JsonNode* JsonParser::ParseJsonArray(const std::string& objectSegment, std::stri
     for(const std::string& segment : segments)
     {
         IdentificationResult identification = objectIdentifier.IdentifyElement(segment);
-        JsonElementType elementType = identification.GetElementType();
+        GlobalJsonDefinitions::JsonElementType elementType = identification.GetElementType();
 
-        ValidateJsonElementType(JsonElementType_Array, identification, {JsonElementType_Object, JsonElementType_Array, JsonElementType_SingleValue} );
+        ValidateJsonElementType(GlobalJsonDefinitions::JsonElementType_Array, identification, {GlobalJsonDefinitions::JsonElementType_Object, GlobalJsonDefinitions::JsonElementType_Array, GlobalJsonDefinitions::JsonElementType_SingleValue} );
 
-        if(elementType == JsonElementType_Object)
+        if(elementType == GlobalJsonDefinitions::JsonElementType_Object)
             ParseJsonObject(segment, "", result);
-        else if(elementType == JsonElementType_Array)
+        else if(elementType == GlobalJsonDefinitions::JsonElementType_Array)
             ParseJsonArray(segment, "", result);
-        else if(elementType == JsonElementType_SingleValue)
+        else if(elementType == GlobalJsonDefinitions::JsonElementType_SingleValue)
             ProcessSingleJsonValue(segment, "", result);
     }
 
@@ -180,17 +182,19 @@ JsonNode* JsonParser::ParseJsonString(const std::string& value)
     ValidateJsonFormat(value);
 
     IdentificationResult firstElement = objectIdentifier.IdentifyElement(value);
-    JsonElementType firstElementType = firstElement.GetElementType();
+    GlobalJsonDefinitions::JsonElementType firstElementType = firstElement.GetElementType();
 
-    if(firstElementType == JsonElementType_Unknown)
-        throw new std::invalid_argument("no valid Jsonelement found in value");
+    if(firstElementType == GlobalJsonDefinitions::JsonElementType_Unknown)
+        throw std::invalid_argument("no valid Jsonelement found in value");
 
-    if(firstElementType == JsonElementType_Object)
+    if(firstElementType == GlobalJsonDefinitions::JsonElementType_Object)
         return ParseJsonObject(value, "", nullptr);
-    else if(firstElementType == JsonElementType_Array)
+    else if(firstElementType == GlobalJsonDefinitions::JsonElementType_Array)
         return ParseJsonArray(value, "", nullptr);
-    else if(firstElementType == JsonElementType_SingleValue)
+    else if(firstElementType == GlobalJsonDefinitions::JsonElementType_SingleValue)
         return ProcessSingleJsonValue(stringhelper::TrimCopy(value), "", nullptr);
+    else
+        throw std::invalid_argument("no valid Jsonelement found in value");
 }
 
 std::string JsonParser::GetNormalizedName(const std::string name)

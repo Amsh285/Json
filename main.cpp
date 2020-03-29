@@ -7,6 +7,7 @@
 #include "JsonObject.h"
 #include "JsonValue.h"
 #include "JsonParser.h"
+#include "GlobalJsonDefinitions.h"
 
 using namespace std;
 
@@ -101,15 +102,15 @@ void TestObjectSegmenter(std::string value)
     std::vector<std::string> segments;
 
     JsonObjectSegmenter segmenter;
-    segmenter.SegmentJsonString(segments, value, JsonElementType_Object);
+    segmenter.SegmentJsonString(segments, value, GlobalJsonDefinitions::JsonElementType_Object);
     segmenter.PrintSegments(&cout, segments);
 
     std::vector<std::string> firstNameSegments;
-    segmenter.SegmentJsonString(firstNameSegments, segments[0], JsonElementType_KeyValuePair);
+    segmenter.SegmentJsonString(firstNameSegments, segments[0], GlobalJsonDefinitions::JsonElementType_KeyValuePair);
     segmenter.PrintSegments(&cout, firstNameSegments);
 
     std::vector<std::string> alterSegments;
-    segmenter.SegmentJsonString(alterSegments, segments[1], JsonElementType_KeyValuePair);
+    segmenter.SegmentJsonString(alterSegments, segments[1], GlobalJsonDefinitions::JsonElementType_KeyValuePair);
     segmenter.PrintSegments(&cout, alterSegments);
 }
 

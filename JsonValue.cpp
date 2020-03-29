@@ -18,6 +18,19 @@ JsonValue::~JsonValue()
     //dtor
 }
 
+std::string JsonValue::GetStringValue() const
+{
+    std::string trimmedName = stringhelper::TrimCopy(value);
+
+    if(trimmedName[0] == '\"')
+        trimmedName = trimmedName.substr(1, trimmedName.size() - 1);
+
+    if(trimmedName[trimmedName.size() - 1] == '\"')
+        trimmedName = trimmedName.substr(0, trimmedName.size() - 1);
+
+    return trimmedName;
+}
+
 std::string JsonValue::ToJsonString()
 {
     std::string result = "";

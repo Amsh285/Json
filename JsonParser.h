@@ -17,9 +17,6 @@
 #include "JsonValue.h"
 #include "StringHelper.h"
 
-
-using namespace GlobalJsonDefinitions;
-
 class JsonParser
 {
     public:

@@ -1,8 +1,11 @@
 #include "InsideStringLiteralState.h"
 
+using namespace GlobalJsonDefinitions;
+
 InsideStringLiteralState::InsideStringLiteralState()
 {
     this->isActive = false;
+    this->IdentificationToken = stringLiteralTag;
 }
 
 InsideStringLiteralState::~InsideStringLiteralState()

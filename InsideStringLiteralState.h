@@ -3,8 +3,7 @@
 
 #include "FlipSwitch.h"
 #include "JsonUtilities.h"
-
-using namespace GlobalJsonDefinitions;
+#include "GlobalJsonDefinitions.h"
 
 class InsideStringLiteralState
 {
@@ -16,7 +15,7 @@ class InsideStringLiteralState
     protected:
 
     private:
-        const char IdentificationToken = stringLiteralTag;
+        char IdentificationToken;
         bool isActive;
 };
 

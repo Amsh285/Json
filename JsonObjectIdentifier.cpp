@@ -1,6 +1,6 @@
 #include "JsonObjectIdentifier.h"
 
-IdentificationResult::IdentificationResult(std::string::size_type position, JsonElementType elementType)
+IdentificationResult::IdentificationResult(std::string::size_type position, GlobalJsonDefinitions::JsonElementType elementType)
     : position(position), elementType(elementType)
 {
 }
@@ -28,21 +28,21 @@ IdentificationResult JsonObjectIdentifier::IdentifyElement(std::string::size_typ
 {
     for(;position < value.size();++position)
     {
-        if(value[position] == openJsonObjectTag)
-            return IdentificationResult(position, JsonElementType_Object);
-        else if(value[position] == openJsonArrayTag)
-            return IdentificationResult(position, JsonElementType_Array);
-        else if(value[position] != whitespace)
+        if(value[position] == GlobalJsonDefinitions::openJsonObjectTag)
+            return IdentificationResult(position, GlobalJsonDefinitions::JsonElementType_Object);
+        else if(value[position] == GlobalJsonDefinitions::openJsonArrayTag)
+            return IdentificationResult(position, GlobalJsonDefinitions::JsonElementType_Array);
+        else if(value[position] != GlobalJsonDefinitions::whitespace)
             return IdentifyJsonValue(position, value);
     }
 
-    return IdentificationResult(std::string::npos, JsonElementType_Unknown);
+    return IdentificationResult(std::string::npos, GlobalJsonDefinitions::JsonElementType_Unknown);
 }
 
 IdentificationResult JsonObjectIdentifier::IdentifyJsonValue(std::string::size_type position, std::string value) const
 {
-    if(value[position] == keyValuePairDelimiter)
-        throw JsonObjectIdentficationException("The first sign of a JsonValue cannot be " + std::to_string(keyValuePairDelimiter));
+    if(value[position] == GlobalJsonDefinitions::keyValuePairDelimiter)
+        throw JsonObjectIdentficationException("The first sign of a JsonValue cannot be " + std::to_string(GlobalJsonDefinitions::keyValuePairDelimiter));
 
     std::string::size_type startPosition = position;
 
@@ -50,10 +50,10 @@ IdentificationResult JsonObjectIdentifier::IdentifyJsonValue(std::string::size_t
 
     for(;position < value.size();++position)
     {
-        if(insideStringState.HandleState(value[position]) && value[position] == keyValuePairDelimiter)
-            return IdentificationResult(startPosition, JsonElementType_KeyValuePair);
+        if(insideStringState.HandleState(value[position]) && value[position] == GlobalJsonDefinitions::keyValuePairDelimiter)
+            return IdentificationResult(startPosition, GlobalJsonDefinitions::JsonElementType_KeyValuePair);
     }
 
-    return IdentificationResult(startPosition, JsonElementType_SingleValue);
+    return IdentificationResult(startPosition, GlobalJsonDefinitions::JsonElementType_SingleValue);
 }
 

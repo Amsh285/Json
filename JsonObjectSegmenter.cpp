@@ -1,5 +1,7 @@
 #include "JsonObjectSegmenter.h"
 
+using namespace GlobalJsonDefinitions;
+
 JsonObjectSegmenter::JsonObjectSegmenter()
 {
     //ctor

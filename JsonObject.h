@@ -18,6 +18,8 @@ class JsonObject : public JsonNode
         virtual std::string ToJsonString();
         virtual ~JsonObject();
 
+        std::vector<JsonNode*> GetChildren() const { return children; };
+
         void AddChild(JsonNode *child);
     protected:
 

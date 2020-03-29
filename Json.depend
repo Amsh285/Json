@@ -54,16 +54,16 @@
 	"JsonObject.h"
 	"JsonValue.h"
 
-1585327425 source:d:\gitprojects\json\jsonnode.cpp
+1585393693 source:d:\gitprojects\json\jsonnode.cpp
 	"JsonNode.h"
 
-1585327419 d:\gitprojects\json\jsonnode.h
+1585393693 d:\gitprojects\json\jsonnode.h
 	<string>
 
-1585327513 source:d:\gitprojects\json\jsonobject.cpp
+1585393693 source:d:\gitprojects\json\jsonobject.cpp
 	"JsonObject.h"
 
-1584370114 d:\gitprojects\json\jsonobject.h
+1585393693 d:\gitprojects\json\jsonobject.h
 	<vector>
 	<stdexcept>
 	"JsonNode.h"
@@ -75,22 +75,24 @@
 	<stdexcept>
 	"JsonNode.h"
 
-1585327542 source:d:\gitprojects\json\jsonvalue.cpp
+1585421450 source:d:\gitprojects\json\jsonvalue.cpp
 	"JsonValue.h"
 
-1584368930 d:\gitprojects\json\jsonvalue.h
+1585421483 d:\gitprojects\json\jsonvalue.h
 	<string>
 	"JsonNode.h"
 	"JsonObject.h"
+	"StringHelper.h"
 
-1585311553 source:d:\gitprojects\json\main.cpp
+1585460921 source:d:\gitprojects\json\main.cpp
 	<iostream>
 	"JsonObjectSegmenter.h"
 	"StringHelper.h"
-	"Utilities.h"
+	"JsonUtilities.h"
 	"JsonObject.h"
 	"JsonValue.h"
 	"JsonParser.h"
+	"GlobalJsonDefinitions.h"
 
 1585131070 d:\gitprojects\json\utilities.h
 	<string>
@@ -105,17 +107,17 @@
 1584689792 source:d:\gitprojects\json\utilities.cpp
 	"Utilities.h"
 
-1585302305 source:d:\gitprojects\json\jsonparser.cpp
+1585411908 source:d:\gitprojects\json\jsonparser.cpp
 	"JsonParser.h"
 
-1585147233 d:\gitprojects\json\jsonparser.h
+1585405894 d:\gitprojects\json\jsonparser.h
 	<algorithm>
 	<assert.h>
 	<stdexcept>
 	<string>
 	<tuple>
 	<sstream>
-	"Utilities.h"
+	"JsonUtilities.h"
 	"JsonNode.h"
 	"JsonObject.h"
 	"JsonObjectIdentifier.h"
@@ -124,10 +126,10 @@
 	"JsonValue.h"
 	"StringHelper.h"
 
-1585303403 source:d:\gitprojects\json\jsonobjectsegmenter.cpp
+1585405987 source:d:\gitprojects\json\jsonobjectsegmenter.cpp
 	"JsonObjectSegmenter.h"
 
-1585371093 d:\gitprojects\json\jsonobjectsegmenter.h
+1585405961 d:\gitprojects\json\jsonobjectsegmenter.h
 	<string>
 	<tuple>
 	<vector>
@@ -141,15 +143,15 @@
 	"JsonObjectSegmenterIgnoreSignState.h"
 	"InsideStringLiteralState.h"
 
-1585130018 d:\gitprojects\json\stringhelper.h
+1585393693 d:\gitprojects\json\stringhelper.h
 	<string>
 	<vector>
 	<sstream>
 
-1585130001 source:d:\gitprojects\json\stringhelper.cpp
+1585393693 source:d:\gitprojects\json\stringhelper.cpp
 	"StringHelper.h"
 
-1585371088 d:\gitprojects\json\jsonobjectsegmenterignoresignstate.h
+1585405890 d:\gitprojects\json\jsonobjectsegmenterignoresignstate.h
 	<string>
 	<tuple>
 	<vector>
@@ -160,7 +162,7 @@
 	"JsonUtilities.h"
 	"InsideStringLiteralState.h"
 
-1584774229 source:d:\gitprojects\json\jsonobjectsegmenterignoresignstate.cpp
+1585405953 source:d:\gitprojects\json\jsonobjectsegmenterignoresignstate.cpp
 	"JsonObjectSegmenterIgnoreSignState.h"
 
 1584772183 d:\gitprojects\json\jsonobjectsegmenterkeyvaluepairvalidationstate.h
@@ -170,10 +172,10 @@
 1584768381 source:d:\gitprojects\json\jsonobjectsegmenterkeyvaluepairvalidationstate.cpp
 	"JsonObjectSegmenterKeyValuePairValidationState.h"
 
-1584766798 source:d:\gitprojects\json\flipswitch.cpp
+1585393693 source:d:\gitprojects\json\flipswitch.cpp
 	"FlipSwitch.h"
 
-1584766799 d:\gitprojects\json\flipswitch.h
+1585393693 d:\gitprojects\json\flipswitch.h
 
 1584772455 d:\gitprojects\json\jsonobjectsegmenterinsidestringliteralstate.h
 	"FlipSwitch.h"
@@ -182,40 +184,41 @@
 1584772497 source:d:\gitprojects\json\jsonobjectsegmenterinsidestringliteralstate.cpp
 	"JsonObjectSegmenterInsideStringLiteralState.h"
 
-1585131077 source:d:\gitprojects\json\jsonobjectidentifier.cpp
+1585406737 source:d:\gitprojects\json\jsonobjectidentifier.cpp
 	"JsonObjectIdentifier.h"
 
-1585371090 d:\gitprojects\json\jsonobjectidentifier.h
+1585406973 d:\gitprojects\json\jsonobjectidentifier.h
 	<string>
 	"InsideStringLiteralState.h"
 	"JsonObjectIdentficationException.h"
 	"JsonUtilities.h"
 
-1585113690 source:d:\gitprojects\json\insidestringliteralstate.cpp
+1585406130 source:d:\gitprojects\json\insidestringliteralstate.cpp
 	"InsideStringLiteralState.h"
 
-1585371086 d:\gitprojects\json\insidestringliteralstate.h
+1585408805 d:\gitprojects\json\insidestringliteralstate.h
 	"FlipSwitch.h"
 	"JsonUtilities.h"
+	"GlobalJsonDefinitions.h"
 
-1585118553 source:d:\gitprojects\json\jsonobjectidentficationexception.cpp
+1585393693 source:d:\gitprojects\json\jsonobjectidentficationexception.cpp
 	"JsonObjectIdentficationException.h"
 
-1585118187 d:\gitprojects\json\jsonobjectidentficationexception.h
+1585393693 d:\gitprojects\json\jsonobjectidentficationexception.h
 	<exception>
 	<string>
 
-1585122165 source:d:\gitprojects\json\jsonparserexception.cpp
+1585393693 source:d:\gitprojects\json\jsonparserexception.cpp
 	"JsonParserException.h"
 
-1585122139 d:\gitprojects\json\jsonparserexception.h
+1585393693 d:\gitprojects\json\jsonparserexception.h
 	<stdexcept>
 	<string>
 
-1585371060 source:d:\gitprojects\json\jsonutilities.cpp
+1585408689 source:d:\gitprojects\json\jsonutilities.cpp
 	"JsonUtilities.h"
 
-1585131070 d:\gitprojects\json\jsonutilities.h
+1585408713 d:\gitprojects\json\jsonutilities.h
 	<string>
 	<stdexcept>
 	<functional>
@@ -224,4 +227,10 @@
 	"JsonNode.h"
 	"JsonObject.h"
 	"JsonValue.h"
+
+1585408747 d:\gitprojects\json\globaljsondefinitions.h
+	<string>
+
+1585408693 source:d:\gitprojects\json\globaljsondefinitions.cpp
+	"GlobalJsonDefinitions.h"
 

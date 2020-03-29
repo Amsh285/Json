@@ -12,8 +12,6 @@
 #include "JsonUtilities.h"
 #include "InsideStringLiteralState.h"
 
-using namespace GlobalJsonDefinitions;
-
 class JsonObjectSegmenterIgnoreSignState
 {
     public:
